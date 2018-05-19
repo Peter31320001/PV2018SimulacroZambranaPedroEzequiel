@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <p:panel id="pnlImagenes" header="Tabla de imagenes">
+            <p:growl id="imagenes" showDetail="true"/>
+            <h:form id="frmCargaImagen" enctype="multipart/formdate">
+                <h:panelGrid id="pnlGridCargaImagen" columns="2">
+                    <p:outputLabel for="img" value="Imagen: "/>
+                    <p:fileUpload id="img" value="#{imagenFormBean.file}"
+                                  mode="simple"
+                                  invalidFileMessage="No puedo cargar un archivo"/>
+                    <p:commandButton id="btnGuardarImagen" value="GUARDAR"
+                                     update="pnlMuestraImagen" ajax="false"
+                                     actionListener="#{imagenFormBean.agregarImagen()}"/>
+                    <p:commandButton id="btnReiniciar" value="Reiniciar"
+                                     update="pnlMuestraImagen" ajax="false"
+                                     actionListener="#{imagenFormBean.reiniciarImagen()}"/>
+                    <p:panel id="pnlMuestraImagen">
+                        <p:graphicImage width="100" 
+                                        value="#{imagenFormBean.imagenSubida}"
+                                        height="100"
+                                        cache="false" alt="Imagen no Disponile"/>
+                    </p:panel>
+                </h:panelGrid>
+            </h:form>
+            <h:form id="tblMuestraLista">
+                <p:dataTable id="tblImagenes" var="imgs"
+                             value="#{imagenFormBean.listadoImagenes.listadoI}"
+                             paginator="true" rows="6" emptyMessage="Nada">
+                    <p:column headerText="Imagene" style="width: 130px">
+                        <p:graphicImage width="100" value="#{imagenFormBean.imagenSubida}"
+                                        height="100"
+                                        cache="false" rendered="true" alt="No Disponible">
+                            <f:param name="numImg" value="#{imgs.numI}"/>
+                        </p:graphicImage>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:panel>
+    </h:body>
+</html>
+
