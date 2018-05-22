@@ -5,6 +5,7 @@
  */
 package palabra.FormBean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -15,7 +16,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class PalabraFormBean {
+public class PalabraFormBean implements Serializable{
     private ArrayList <String> listaPalabra;
     private String palabra;
     

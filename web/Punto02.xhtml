@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Punto02</title>
+    </h:head>
+    <h:body>
+        <p:panel id="pnlLibro" header="Libros">
+            <h:form id="frmLibro">
+                <p:panelGrid id="tblLibro" columns="2">
+                    <p:outputLabel id="lblISBN" value="Ingrese ISBN: "/>
+                    <p:inputText id="txtISBN" value="#{librosFormBean.isbn}"/>
+                    <p:outputLabel id="lblTitulo" value="Ingrese Titulo: "/>
+                    <p:inputText id="txtTitulo" value="#{librosFormBean.titulo}"/>
+                    <p:outputLabel id="lblAutor" value="Ingrese Autor: "/>
+                    <p:inputText id="txtAutor" value="#{librosFormBean.autor}"/>
+                    <p:outputLabel id="lblPrecio" value="Ingrese Precio: "/>
+                    <p:inputNumber id="txtPrecio" value="#{librosFormBean.precio}"/>
+                    
+                    <p:commandButton id="btnGuardarLibro" value="Guardar"
+                                     update="tblMuestraLibros"
+                                     actionListener="#{librosFormBean.guardarLibros()}"/>
+                    <p:commandButton id="btnReiniciar" value="Reiniciar"
+                                     update="pnlLibro" ajax="false"
+                                     actionListener="#{librosFormBean.reinciarLibros()}"/>
+                </p:panelGrid>
+                <p:panelGrid id="tblBuscarLibros" columns="2">
+                    <p:outputLabel id="lblBuscarL" value="Titulo para buscar:"/>
+                    <p:inputText id="txtBuscarL" value="#{librosFormBean.auxiliarTitulo}"/>
+                    <p:outputLabel/>
+                    <p:commandButton id="btnBuscarL" value="Buscar"
+                                     update="tblBusquedaLibros"
+                                     actionListener="#{librosFormBean.buscarLibros()}"/>
+                </p:panelGrid>
+                <p:panel id="pnlTblMuestraLibros" header="Libros Guardados">
+                    <h:panelGrid id="tblMuestraLibros" columns="4">
+                        <p:dataTable id="dtTblLibros" value="#{librosFormBean.listadoLibros.listaLibro}"
+                                    var="cadaLibro"
+                                    emptyMessage="No hay nada">
+                            <p:column headerText="ISBN">
+                                <p:outputLabel value="#{cadaLibro.isbn}"/>
+                            </p:column>
+                            <p:column headerText="Titulo">
+                                <p:outputLabel value="#{cadaLibro.titulo}"/>
+                            </p:column>
+                            <p:column headerText="Autor">
+                                <p:outputLabel value="#{cadaLibro.autor}"/>
+                            </p:column>
+                            <p:column headerText="Precio">
+                                <p:outputLabel value="#{cadaLibro.precio}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGrid>
+                </p:panel>
+                <p:panel id="pnlTblBusquedaLibros" header="Filtrar Libros">
+                    <p:panelGrid id="tblBusquedaLibros" columns="4">
+                        <p:dataTable value="#{librosFormBean.listadoLibrosAuxiliar.listaLibro}" 
+                                 var="auxLibros" 
+                                 emptyMessage="No hay libros relacionados">
+                            <p:column headerText="Titulo">
+                                <p:outputLabel value="#{auxLibros.titulo}"/>
+                            </p:column>
+                            <p:column headerText="ISBN">
+                                <p:outputLabel value="#{auxLibros.isbn}"/>
+                            </p:column>
+                            <p:column headerText="Autor">
+                                <p:outputLabel value="#{auxLibros.autor}"/>
+                            </p:column>
+                            <p:column headerText="Precio">
+                                <p:outputLabel value="#{auxLibros.precio}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panelGrid>
+                </p:panel>
+            </h:form>
+        </p:panel>
+    </h:body>
+</html>
+
