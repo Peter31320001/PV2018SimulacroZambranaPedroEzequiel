@@ -30,20 +30,18 @@ public class ImagenFormBean implements Serializable{
     private byte[] imagen;
     private byte[] nuevaI;
     private ListadoI ListadoImagenes;
+    private String fecha;
 
-    /**
-     * Creates a new instance of ImagenFormBean
-     */
     public ImagenFormBean() {
-        ListadoImagenes = new ListadoI();
+        ListadoImagenes=new ListadoI();
     }
 
-    public ImagenFormBean(byte[] imagen, byte[] nuevaI, ListadoI ListadoImagenes) {
+    public ImagenFormBean(byte[] imagen, byte[] nuevaI, ListadoI ListadoImagenes, String fecha) {
         this.imagen = imagen;
         this.nuevaI = nuevaI;
         this.ListadoImagenes = ListadoImagenes;
+        this.fecha = fecha;
     }
-    
     public void agregarImagen() throws ParseException{
         setImagen(file.getContents());
         getListadoImagenes().llenarLitado(imagen);
@@ -56,9 +54,6 @@ public class ImagenFormBean implements Serializable{
             return new DefaultStreamedContent();
         }
         else{
-            String nuevaImg = context.getExternalContext().getRequestParameterMap().get("numImg");
-            int indice = Integer.parseInt(nuevaImg);
-            setNuevaI(getListadoImagenes().getListadoI().get(indice).getImagen());
             if(getImagen()==null){
                 return null;}
             else{
@@ -69,7 +64,6 @@ public class ImagenFormBean implements Serializable{
     public void reiniciarImagen(){
         ListadoImagenes = new ListadoI();
     }
-    
 
     /**
      * @return the file
@@ -126,5 +120,22 @@ public class ImagenFormBean implements Serializable{
     public void setListadoImagenes(ListadoI ListadoImagenes) {
         this.ListadoImagenes = ListadoImagenes;
     }
+
+    /**
+     * @return the fecha
+     */
+    public String getFecha() {
+        return fecha;
+    }
+
+    /**
+     * @param fecha the fecha to set
+     */
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+    
+
+    
     
 }
